@@ -1,0 +1,24 @@
+{
+  "name": "Delta_LoRaWAN",
+  "description": "Bower file",
+  "main": [],
+  "authors": [
+    "Jesse",
+    "Mark",
+    "Leander"
+  ],
+  "license": "GLPv2",
+  "homepage": "https://github.com/JesseLabruyere/Delta_LoRaWAN",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "https://github.com/angular/bower-angular.git#1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "https://github.com/twbs/bootstrap.git#^3.3.7"
+  }
+}

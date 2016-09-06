@@ -2,6 +2,8 @@
 /public/storage
 /vendor
 /.idea
+/bower_components
+npm-debug.log
 Homestead.json
 Homestead.yaml
 .env
