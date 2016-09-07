@@ -16,3 +16,24 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+/*Route::group(
+    [
+        'namespace' => '',
+        'prefix' => '/example',
+        'middleware => '',
+    ],
+    function () {
+        Route::get('/', [
+            'as' => 'example.show',
+            'uses' => 'ExampleController@show'
+        ]);
+    }
+);*/
+
+Route::resource('/example', 'ExampleController', [
+    'only' => ['index'],
+    'names' => [
+        'index' => 'example.index',
+    ]
+]);
