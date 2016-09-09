@@ -1,5 +1,13 @@
 /node_modules
 /public/storage
+/public/build/*
+/public/css/*
+/public/css/app.css
+/public/css/app.css.map
+/public/js/*
+/public/js/app.js
+/public/js/app.js.map
+/resources/assets/js/bower/
 /vendor
 /.idea
 /bower_components
