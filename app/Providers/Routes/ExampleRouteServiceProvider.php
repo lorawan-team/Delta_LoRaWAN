@@ -26,6 +26,13 @@ class ExampleRouteServiceProvider extends ServiceProvider
                         'index' => 'example.index',
                     ]
                 ]);
+    
+                $router->resource('/user', 'Auth\RegisterController', [
+                    'only' => ['store'],
+                    'names' => [
+                        'store' => 'user.store',
+                    ]
+                ]);
             });
         });
     }
