@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Repositories\ExampleRepositoryInterface;
+use App\Http\Transformers\ExampleTransformer;
 
-class ExampleController extends BaseController
+class ExampleController extends Controller
 {
 
     private $example;
+
+    protected $transformer = ExampleTransformer::class;
 
     public function __construct(ExampleRepositoryInterface $example)
     {
@@ -20,9 +22,12 @@ class ExampleController extends BaseController
     }
 
     public function index() {
-        //dd(app());
-        return response($this->example->createModel());
-        //return response("Example Controller");
+        $result = $this->example->createModel();
+
+        return $this->response->item(
+            $result,
+            $this->createTransformer()
+        );
     }
 
 }
