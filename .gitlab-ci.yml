@@ -1,0 +1,21 @@
+before_script:
+  - cd /var/www/html
+  - git clone https://LeanderM:12061992a@github.com/lorawan-team/Delta_LoRaWAN.git --bare
+  - cp .env.example .env
+  - composer update
+  - bower update
+  - php artisan key:generate
+  - php artisan config:cache
+#  - php artisan migrate
+#  - php artisan migrate:status
+  - php artisan route:cache
+  - php artisan route:list
+
+variables:
+  DATABASE_NAME: project_name
+  DATABASE_USER: username
+  DATABASE_PASSWORD: password
+
+phpunit:php7.0:
+  script:
+    - vendor/bin/phpunit --enforce-time-limit --disallow-todo-tests --verbose --colors
