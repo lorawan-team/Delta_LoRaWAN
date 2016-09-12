@@ -4,10 +4,17 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lorawan-team/delta_service"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
-        "dingo/api": "1.0.*@dev"
+        "dingo/api": "1.0.*@dev",
+        "lorawan-team/delta_service": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

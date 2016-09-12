@@ -174,7 +174,7 @@ return [
         /*
          * resource providers
          */
-        App\Providers\ExampleProvider::class,
+        Delta\DeltaService\Providers\ExampleProvider::class,
 
         /*
          * Package Service Providers...
