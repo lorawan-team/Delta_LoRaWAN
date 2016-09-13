@@ -6,7 +6,7 @@
     "type": "project",
     "repositories": [
         {
-            "type": "cvs",
+            "type": "git",
             "url": "http://github.com/lorawan-team/delta_service"
         }
     ],
