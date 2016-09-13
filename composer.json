@@ -7,7 +7,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "http://github.com/lorawan-team/delta_service"
+            "url": "http://github.com/lorawan-team/delta_service",
             "no-api": "true"
         }
     ],
@@ -54,6 +54,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "secure-http": false
     }
 }
