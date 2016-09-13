@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $providers = [
         \App\Providers\Routes\ExampleRouteServiceProvider::class,
-
+        \App\Providers\Routes\DevicesRouteServiceProvider::class,
     ];
 
     /**
