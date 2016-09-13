@@ -3,7 +3,7 @@
 namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Models\ExampleModelInterface;
+use Delta\DeltaService\Example\ExampleModelInterface;
 
 class ExampleTransformer extends TransformerAbstract
 {
