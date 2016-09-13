@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Repositories\ExampleRepositoryInterface;
+use Delta\DeltaService\Example\ExampleRepositoryInterface;
 use App\Http\Transformers\ExampleTransformer;
 
 class ExampleController extends Controller
