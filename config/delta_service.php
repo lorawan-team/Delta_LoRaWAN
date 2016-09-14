@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'delta_service' => [
+    'connection' => [
         'driver'    => env('DB_CONNECTION', 'mysql'),
         'host'      => env('DB_HOST', 'localhost'),
         'database'  => env('DB_DATABASE', 'homestead'),
