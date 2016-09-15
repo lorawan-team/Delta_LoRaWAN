@@ -4,6 +4,7 @@ namespace App\Providers\Routes;
 
 use Dingo\Api\Routing\Router;
 use App\Providers\ApiRouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class ExampleRouteServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,14 @@ class ExampleRouteServiceProvider extends ServiceProvider
                     'names' => [
                         'store' => 'user.store',
                     ]
+                ]);
+            });
+
+            $router->post('/test/{id}/', function ($id) {
+                \Log::info('Received message from device with id:' . $id);
+                return response()->json([
+                    'success' => 'true',
+                    'id' => $id
                 ]);
             });
         });
