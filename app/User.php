@@ -29,11 +29,11 @@ class User extends Authenticatable
 
     public function devices()
     {
-        return $this->belongsToMany('Delta\DeltaService\Devices\DeviceModel', 'users_device', 'users_id', 'device_id');
+        return $this->hasMany('Delta\DeltaService\Devices\DeviceModel', 'device_id', 'users_id');
     }
 
-    public function roles()
+    public function devices()
     {
-        return $this->hasMany('Delta\DeltaService\Roles\RoleModel', 'users_id');
+        return $this->hasMany('Delta\DeltaService\Devices\DeviceModel', 'device_id', 'users_id');
     }
 }
