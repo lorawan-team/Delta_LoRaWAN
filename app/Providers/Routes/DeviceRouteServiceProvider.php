@@ -5,7 +5,7 @@ namespace App\Providers\Routes;
 use Dingo\Api\Routing\Router;
 use App\Providers\ApiRouteServiceProvider as ServiceProvider;
 
-class DevicesRouteServiceProvider extends ServiceProvider
+class DeviceRouteServiceProvider extends ServiceProvider
 {
     /**
      * Define the routes for the application.
@@ -20,7 +20,7 @@ class DevicesRouteServiceProvider extends ServiceProvider
                 'namespace'  => 'App\Http\Controllers\Devices'
             ], function ($router) {
 
-                $router->resource('/devices', 'DeviceController', [
+                $router->resource('/device', 'DeviceController', [
                     'only' => ['index', 'show', 'store', 'update', 'destroy'],
                     'names' => [
                         'index' => 'device.index',
