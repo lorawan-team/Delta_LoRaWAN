@@ -18,20 +18,14 @@ class ExampleRouteServiceProvider extends ServiceProvider
     {
         $router->version('v1', function ($router) {
             $router->group([
-                'namespace'  => 'App\Http\Controllers'
+                'namespace'  => 'App\Http\Controllers',
+                'middleware' => 'auth.token'
             ], function ($router) {
 
                 $router->resource('/example', 'ExampleController', [
                     'only' => ['index'],
                     'names' => [
                         'index' => 'example.index',
-                    ]
-                ]);
-    
-                $router->resource('/user', 'Auth\RegisterController', [
-                    'only' => ['store'],
-                    'names' => [
-                        'store' => 'user.store',
                     ]
                 ]);
             });
