@@ -2,4 +2,4 @@
 exec echo "updating composer and bower."
 exec bower update
 exec composer update
-exec echo "bower and composer are updated"
+exec echo "bower and composer have been updated"
