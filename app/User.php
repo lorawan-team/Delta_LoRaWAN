@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function devices()
+    {
+        return $this->hasMany('Delta\DeltaService\Devices\DeviceModel', 'device_id', 'users_id');
+    }
+
+    public function devices()
+    {
+        return $this->hasMany('Delta\DeltaService\Devices\DeviceModel', 'device_id', 'users_id');
+    }
 }
