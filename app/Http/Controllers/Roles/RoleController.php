@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Roles;
+namespace App\Http\Controllers\Devices;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -21,13 +21,13 @@ class RoleController extends Controller
 
     protected $transformer = RoleTransformer::class;
 
-    public function __construct(RoleRepositoryInterface $roleRepository)
+    public function __construct(RoleRepositoryInterface $measurementRepository)
     {
-        $this->roleRepository = $roleRepository;
+        $this->measurementRepository = $measurementRepository;
     }
 
     public function index() {
-        $result = $this->roleRepository->createModel();
+        $result = $this->measurementRepository->createModel();
 
         return $this->response->item(
             $result,
