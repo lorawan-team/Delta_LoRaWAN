@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Measurements;
+namespace App\Http\Controllers\Devices;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
