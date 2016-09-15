@@ -6,8 +6,8 @@
     "type": "project",
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/lorawan-team/delta_service"
+            "type": "git",
+            "url": "http://github.com/lorawan-team/delta_service"
         }
     ],
     "require": {
@@ -53,6 +53,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "secure-http": false
     }
 }
