@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Devices;
+namespace App\Http\Controllers\Sensors;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -20,13 +20,13 @@ class SensorController extends Controller
 
     protected $transformer = SensorTransformer::class;
 
-    public function __construct(SensorRepositoryInterface $deviceRepository)
+    public function __construct(SensorRepositoryInterface $sensorRepository)
     {
-        $this->deviceRepository = $deviceRepository;
+        $this->sensorRepository = $sensorRepository;
     }
 
     public function index() {
-        $result = $this->deviceRepository->createModel();
+        $result = $this->sensorRepository->createModel();
 
         return $this->response->item(
             $result,
