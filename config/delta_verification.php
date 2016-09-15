@@ -7,6 +7,7 @@ return [
     | Database Connection
     |--------------------------------------------------------------------------
     */
+
     'connection' => [
         'driver'    => env('DB_CONNECTION', 'mysql'),
         'host'      => env('DB_HOST', 'localhost'),
@@ -16,5 +17,5 @@ return [
         'charset'   => env('DB_CHARSET', 'utf8'),
         'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
         'prefix'    => env('DB_PREFIX', ''),
-    ]
+    ],
 ];
