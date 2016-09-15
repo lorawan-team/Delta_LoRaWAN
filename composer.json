@@ -8,13 +8,18 @@
         {
             "type": "vcs",
             "url": "https://github.com/lorawan-team/delta_service"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lorawan-team/delta_verification"
         }
     ],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "dingo/api": "1.0.*@dev",
-        "lorawan-team/delta_service": "dev-master"
+        "lorawan-team/delta_service": "dev-master",
+        "lorawan-team/delta_verification": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
