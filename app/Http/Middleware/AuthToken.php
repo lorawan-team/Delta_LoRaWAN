@@ -35,16 +35,16 @@ class AuthToken
         Request $request,
         Closure $next
     ) {
+        $accountId = $request->get('account_id');
         $token = $request->bearerToken();
-        // dd(app()->make('config')->get('delta_verification'));
+
         if (is_null($token)) {
             $this->error(400, 'No bearer token included');
         }
 
-        if (!$this->token->findUserByToken($token)) {
-            $this->error(400, 'Invallid bearer token included');
+        if (!$this->token->findUserByTokenAndAccountId($token, $accountId)) {
+            return $this->error(400, 'Invallid bearer token included or false account');
         }
-
 
         return $next($request);
     }
