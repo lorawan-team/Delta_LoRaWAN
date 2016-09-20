@@ -7,8 +7,7 @@ return [
     | Database Connection
     |--------------------------------------------------------------------------
     */
-
-    'delta_service' => [
+    'connection' => [
         'driver'    => env('DB_CONNECTION', 'mysql'),
         'host'      => env('DB_HOST', 'localhost'),
         'database'  => env('DB_DATABASE', 'homestead'),
@@ -17,5 +16,5 @@ return [
         'charset'   => env('DB_CHARSET', 'utf8'),
         'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
         'prefix'    => env('DB_PREFIX', ''),
-    ],
+    ]
 ];

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Transformers\DeviceTransformer;
 use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Device\DeviceStoreRequest;
 
 
 class DeviceController extends Controller
@@ -23,6 +24,9 @@ class DeviceController extends Controller
         $this->deviceRepository = $deviceRepository;
     }
 
+    /**
+     * @return \Dingo\Api\Http\Response
+     */
     public function index() {
         $result = $this->deviceRepository->createModel();
 
@@ -32,12 +36,30 @@ class DeviceController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
+    /**
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id) {
+        $result = $this->deviceRepository->findById($id);
+
+        return $this->response->item(
+            $result,
+            $this->createTransformer()
+        );
     }
 
-    public function store() {
-        //... TODO
+    /**
+     * @param DeviceStoreRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function store(DeviceStoreRequest $request) {
+        $result = $this->deviceRepository->store($request['name']);
+
+        return $this->response->item(
+            $result,
+            $this->createTransformer()
+        );
     }
 
     public function update() {
