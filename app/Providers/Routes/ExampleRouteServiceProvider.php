@@ -5,6 +5,7 @@ namespace App\Providers\Routes;
 use Dingo\Api\Routing\Router;
 use App\Providers\ApiRouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class ExampleRouteServiceProvider extends ServiceProvider
 {
@@ -37,10 +38,17 @@ class ExampleRouteServiceProvider extends ServiceProvider
             });
 
             $router->post('/test/{id}/', function ($id) {
-                \Log::info('Received message from device with id:' . $id);
+                // First we fetch the Request instance
+                $request = app()->make('request');
+                // Now we can get the content from it
+                $content = $request->all();
+
+                \Log::info('Received message from device with id:' . $id . ', value:' . json_encode($content));
+
                 return response()->json([
                     'success' => 'true',
-                    'id' => $id
+                    'id' => $id,
+                    'content' => $content
                 ]);
             });
         });
