@@ -10,6 +10,8 @@ use App\Http\Transformers\DeviceTransformer;
 use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Device\DeviceStoreRequest;
+use App\Http\Requests\Device\DeviceUpdateRequest;
+use App\Http\Requests\Device\DeviceIndexRequest;
 
 
 class DeviceController extends Controller
@@ -25,10 +27,12 @@ class DeviceController extends Controller
     }
 
     /**
+     * @param DeviceIndexRequest $request
+     *
      * @return \Dingo\Api\Http\Response
      */
-    public function index() {
-        $result = $this->deviceRepository->createModel();
+    public function index(DeviceIndexRequest $request) {
+        $result = $this->deviceRepository->findAll((array) $request);
 
         return $this->response->item(
             $result,
@@ -54,19 +58,37 @@ class DeviceController extends Controller
      * @return \Dingo\Api\Http\Response
      */
     public function store(DeviceStoreRequest $request) {
-        $result = $this->deviceRepository->store($request['name']);
+        $this->deviceRepository->store((array) $request);
 
-        return $this->response->item(
-            $result,
-            $this->createTransformer()
-        );
+        return $this->response->created();
     }
 
-    public function update() {
-        //... TODO
+    /**
+     * @param int $id
+     * @param DeviceUpdateRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function update($id, DeviceUpdateRequest $request) {
+        $model = $this->deviceRepository->findById($id);
+
+        if(! isset($model)) {
+            return $this->response->error('Device not found', 404);
+        }
+
+        $this->deviceRepository->update($model, (array) $request);
+
+        return $this->response->accepted();
     }
 
-    public function destroy() {
-        //... TODO
+    public function destroy($id) {
+        $model = $this->deviceRepository->findById($id);
+
+        if(! isset($model)) {
+            return $this->response->error('Device not found', 404);
+        }
+
+        $this->deviceRepository->delete($model);
+
+        return $this->response->accepted();
     }
 }
