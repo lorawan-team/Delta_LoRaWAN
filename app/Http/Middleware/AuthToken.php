@@ -7,6 +7,7 @@ use Dingo\Api\Http\Response;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Delta\DeltaVerification\Tokens\TokenRepositoryInterface as TokenRepository;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthToken
 {
@@ -28,30 +29,54 @@ class AuthToken
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
     public function handle(
         Request $request,
         Closure $next
     ) {
-        $accountId = $request->get('account_id');
-        $token = $request->bearerToken();
-        // dd($token);
-        // dd(\JWTAuth::parseToken()->getToken()->get());
-        // dd(\JWTAuth::decode(\JWTAuth::parseToken()->getToken()));
-        dd(base64_decode(\JWTAuth::parseToken()->getToken()->get()));
+        try {
+            $decodedString = base64_decode(\JWTAuth::parseToken()->getToken()->get());
 
-        if (is_null($token)) {
-            $this->error(400, 'No bearer token included');
-        }
+            if (is_null($decodedString)) {
+                $this->error(400, 'No bearer token included');
+            }
 
-        if (!$this->token->findUserByTokenAndAccountId($token, $accountId)) {
+            $json = substr($decodedString, 0, strpos($decodedString, '}'));
+            $token = json_decode($json . "}", true)['jti'];
+
+            $accountId = $request->get('account_id');
+
+            if ($request->route()->getName() === 'owner.index') {
+                $this->authenticate($this->token->findUserByToken($token));
+                return $next($request);
+            }
+
+            if (is_null($accountId)) {
+                return $this->error(400, 'No account ID included with request');
+            }
+
+            // Token must not be revoked yet when checking
+            if (!$this->token->verifyUserByTokenAndAccountId($token, $accountId)) {
+                $this->authenticate($this->token->findUserByToken($token));
+                return $next($request);
+            }
+
             return $this->error(400, 'Invallid bearer token included or false account');
+        } catch (TokenInvalidException $e) {
+            return $this->error(400, 'Invallid token provided');
+        } catch (\Exception $e) {
+            return $this->error(400, 'Invallid token provided');
         }
-
-        return $next($request);
     }
+
+    protected function authenticate($user)
+    {
+        if (!\Auth::check()) {
+            return \Auth::login($user);
+        }
+    }
+
 
     /**
      * Return an error response.
