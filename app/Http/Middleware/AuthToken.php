@@ -37,6 +37,10 @@ class AuthToken
     ) {
         $accountId = $request->get('account_id');
         $token = $request->bearerToken();
+        // dd($token);
+        // dd(\JWTAuth::parseToken()->getToken()->get());
+        // dd(\JWTAuth::decode(\JWTAuth::parseToken()->getToken()));
+        dd(base64_decode(\JWTAuth::parseToken()->getToken()->get()));
 
         if (is_null($token)) {
             $this->error(400, 'No bearer token included');

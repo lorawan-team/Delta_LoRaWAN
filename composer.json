@@ -18,6 +18,7 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "dingo/api": "1.0.*@dev",
+        "tymon/jwt-auth": "0.5.*",
         "lorawan-team/delta_service": "dev-master",
         "lorawan-team/delta_verification": "dev-master"
     },
