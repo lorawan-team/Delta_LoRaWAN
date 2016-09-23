@@ -20,7 +20,7 @@
         "dingo/api": "1.0.*@dev",
         "tymon/jwt-auth": "0.5.*",
         "lorawan-team/delta_service": "dev-master",
-        "lorawan-team/delta_verification": "dev-master"
+        "lorawan-team/delta_verification": "0.0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

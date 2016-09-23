@@ -16,6 +16,7 @@ class UserTransformer extends TransformerAbstract
     public function transform(UserInterface $user)
     {
         return [
+            'id'             => $user->getKey(),
             'email'          => $user->getEmail(),
             'name'           => $user->getName(),
             'remember_token' => $user->getRememberToken(),
