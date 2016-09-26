@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Measurements;
 
+use App\Jobs\StoreMeasurements;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -37,8 +38,11 @@ class MeasurementController extends Controller
         //... TODO
     }
 
-    public function store() {
-        //... TODO
+    public function store(MeasurementStoreRequest $request) {
+        $requestArray = (array) $request;
+        $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
+
+        return $this->response->created();
     }
 
     public function update() {
