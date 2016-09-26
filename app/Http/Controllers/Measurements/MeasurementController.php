@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Measurements;
 
+use App\Http\Requests\Device\MeasurementStoreRequest;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -33,11 +34,16 @@ class MeasurementController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
+    public function show($id) {
+        $result = $this->measurementRepository->findById($id);
+
+        return $this->response->item(
+            $result,
+            $this->createTransformer()
+        );
     }
 
-    public function store() {
+    public function store(MeasurementStoreRequest $request) {
         //... TODO
     }
 
