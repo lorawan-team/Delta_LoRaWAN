@@ -12,6 +12,8 @@ use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
+use App\Http\Requests\Measurements\MeasurementStoreRequest;
+
 
 class MeasurementController extends Controller
 {
@@ -39,7 +41,7 @@ class MeasurementController extends Controller
     }
 
     public function store(MeasurementStoreRequest $request) {
-        $requestArray = (array) $request;
+        $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
 
         return $this->response->created();

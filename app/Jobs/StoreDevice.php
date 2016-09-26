@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
+use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 
-class StoreMeasurements Extends Job
+class StoreDevice Extends Job
 {
     /**
      * @var array
@@ -21,9 +21,7 @@ class StoreMeasurements Extends Job
         $this->data = $data;
     }
 
-
-
-    public function handle(MeasurementRepositoryInterface $measurementRepository) {
-        $measurementRepository->store($this->data);
+    public function handle(DeviceRepositoryInterface $deviceRepository) {
+        $deviceRepository->store($this->data);
     }
 }
