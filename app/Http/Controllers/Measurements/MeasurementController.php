@@ -36,8 +36,13 @@ class MeasurementController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
+    public function show($id) {
+        $result = $this->measurementRepository->findById($id);
+
+        return $this->response->item(
+            $result,
+            $this->createTransformer()
+        );
     }
 
     public function store(MeasurementStoreRequest $request) {

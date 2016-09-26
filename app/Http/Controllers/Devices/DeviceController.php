@@ -82,6 +82,10 @@ class DeviceController extends Controller
         return $this->response->accepted();
     }
 
+    /**
+     * @param $id
+     * @return \Dingo\Api\Http\Response|void
+     */
     public function destroy($id) {
         $model = $this->deviceRepository->findById($id);
 
