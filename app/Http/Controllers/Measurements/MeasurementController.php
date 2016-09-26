@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Measurements;
 
+<<<<<<< HEAD
 use App\Jobs\StoreMeasurements;
+=======
+use App\Http\Requests\Device\MeasurementStoreRequest;
+>>>>>>> 9b4d436... WIP
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -46,10 +50,14 @@ class MeasurementController extends Controller
     }
 
     public function store(MeasurementStoreRequest $request) {
+<<<<<<< HEAD
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
 
         return $this->response->created();
+=======
+        //... TODO
+>>>>>>> 9b4d436... WIP
     }
 
     public function update() {
