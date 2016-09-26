@@ -29,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         \App\Providers\Routes\MeasurementRouteServiceProvider::class,
         \App\Providers\Routes\RoleRouteServiceProvider::class,
         \App\Providers\Routes\SensorRouteServiceProvider::class
+        \App\Providers\Routes\ResourceOwnerRouteProvider::class,
     ];
 
     /**
