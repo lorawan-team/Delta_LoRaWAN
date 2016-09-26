@@ -34,6 +34,6 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->hasMany('Delta\DeltaService\Roles\RoleModel', 'users_id');
+        return $this->belongsToMany('Delta\DeltaService\Roles\RoleModel', 'users_role', 'users_id', 'role_id');
     }
 }
