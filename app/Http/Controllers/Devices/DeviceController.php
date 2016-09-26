@@ -33,10 +33,12 @@ class DeviceController extends Controller
      * @return \Dingo\Api\Http\Response
      */
     public function index(DeviceIndexRequest $request) {
-        $result = $this->deviceRepository->findAll((array) $request);
+        $userId = $request->get("user_id");
 
-        return $this->response->item(
-            $result,
+        $result = $this->deviceRepository->findAll($userId);
+
+        return $this->response->collection(
+            collect($result),
             $this->createTransformer()
         );
     }
