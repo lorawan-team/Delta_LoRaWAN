@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Devices;
+namespace App\Http\Requests\Sensors;
 
 use App\Http\Requests\Request;
 
-class DeviceUpdateRequest extends Request
+class SensorStoreRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,6 +14,7 @@ class DeviceUpdateRequest extends Request
     public function rules()
     {
         return [
+            'device_id' => 'required|integer|max:10',
             'name' => 'required|max:255',
         ];
     }

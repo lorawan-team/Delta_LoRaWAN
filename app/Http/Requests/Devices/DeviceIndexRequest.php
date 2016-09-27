@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Device;
+namespace App\Http\Requests\Devices;
 
 use App\Http\Requests\Request;
 
