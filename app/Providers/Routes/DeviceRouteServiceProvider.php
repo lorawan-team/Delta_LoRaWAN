@@ -17,7 +17,8 @@ class DeviceRouteServiceProvider extends ServiceProvider
     {
         $router->version('v1', function ($router) {
             $router->group([
-                'namespace'  => 'App\Http\Controllers\Devices'
+                'namespace'  => 'App\Http\Controllers\Devices',
+                'middleware' => 'auth.token',
             ], function ($router) {
 
                 $router->resource('/device', 'DeviceController', [
