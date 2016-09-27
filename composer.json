@@ -19,6 +19,7 @@
         "laravel/framework": "5.3.*",
         "dingo/api": "1.0.*@dev",
         "tymon/jwt-auth": "0.5.*",
+        "pda/pheanstalk": "2.1.*",
         "lorawan-team/delta_service": "dev-master",
         "lorawan-team/delta_verification": "0.0.1"
     },

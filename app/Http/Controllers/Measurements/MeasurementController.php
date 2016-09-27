@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Measurements;
 
+use App\Jobs\StoreMeasurements;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,6 +12,8 @@ use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
+use App\Http\Requests\Measurements\MeasurementStoreRequest;
+
 
 class MeasurementController extends Controller
 {
@@ -37,8 +40,11 @@ class MeasurementController extends Controller
         //... TODO
     }
 
-    public function store() {
-        //... TODO
+    public function store(MeasurementStoreRequest $request) {
+        $requestArray = $request->all();
+        $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
+
+        return $this->response->created();
     }
 
     public function update() {

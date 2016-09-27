@@ -9,9 +9,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Transformers\DeviceTransformer;
 use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Device\DeviceStoreRequest;
-use App\Http\Requests\Device\DeviceUpdateRequest;
-use App\Http\Requests\Device\DeviceIndexRequest;
+use App\Http\Requests\Devices\DeviceStoreRequest;
+use App\Http\Requests\Devices\DeviceUpdateRequest;
+use App\Http\Requests\Devices\DeviceIndexRequest;
+use App\Jobs\StoreDevice;
 
 
 class DeviceController extends Controller
@@ -58,7 +59,8 @@ class DeviceController extends Controller
      * @return \Dingo\Api\Http\Response
      */
     public function store(DeviceStoreRequest $request) {
-        $this->deviceRepository->store((array) $request);
+        $requestArray = $request->all();
+        $this->dispatch((new StoreDevice($requestArray))->onQueue('device-queue'));
 
         return $this->response->created();
     }

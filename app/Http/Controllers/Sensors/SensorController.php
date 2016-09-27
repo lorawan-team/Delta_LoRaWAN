@@ -11,6 +11,8 @@ use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\SensorTransformer;
 use Delta\DeltaService\Sensors\SensorRepositoryInterface;
+use App\Jobs\StoreSensor;
+use App\Http\Requests\Sensors\SensorStoreRequest;
 
 class SensorController extends Controller
 {
@@ -38,8 +40,11 @@ class SensorController extends Controller
         //... TODO
     }
 
-    public function store() {
-        //... TODO
+    public function store(SensorStoreRequest $request) {
+        $requestArray = $request->all();
+        $this->dispatch((new StoreSensor($requestArray))->onQueue('sensor-queue'));
+
+        return $this->response->created();
     }
 
     public function update() {
