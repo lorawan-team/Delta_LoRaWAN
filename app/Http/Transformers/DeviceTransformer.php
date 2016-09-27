@@ -16,7 +16,7 @@ class DeviceTransformer extends TransformerAbstract
     public function transform(DeviceModel $device)
     {
         return [
-            'test' => $device->getTest(),
+            'name' => $device->getAttribute('name'),
         ];
     }
 }

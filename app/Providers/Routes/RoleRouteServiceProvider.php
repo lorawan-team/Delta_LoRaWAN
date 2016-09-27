@@ -17,7 +17,8 @@ class RoleRouteServiceProvider extends ServiceProvider
     {
         $router->version('v1', function ($router) {
             $router->group([
-                'namespace'  => 'App\Http\Controllers\Roles'
+                'namespace'  => 'App\Http\Controllers\Roles',
+                'middleware' => 'auth.token',
             ], function ($router) {
 
                 $router->resource('/role', 'RoleController', [
