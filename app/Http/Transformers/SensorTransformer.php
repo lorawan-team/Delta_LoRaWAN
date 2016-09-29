@@ -19,7 +19,8 @@ class SensorTransformer extends TransformerAbstract
     public function transform(SensorModelInterface $device)
     {
         return [
-            'test' => $device->getTest(),
+            'id' => $device->getAttribute('id'),
+            'name' => $device->getAttribute('name'),
         ];
     }
 }
