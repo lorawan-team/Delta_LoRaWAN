@@ -35,10 +35,11 @@ class MeasurementController extends Controller
     }
 
     /**
+     * @param int $deviceId
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($id) {
+    public function show($deviceId, $id) {
         $result = $this->measurementRepository->findById($id);
 
         return $this->response->item(
@@ -59,10 +60,11 @@ class MeasurementController extends Controller
     }
 
     /**
+     * @param int $deviceId
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy($id)
+    public function destroy($deviceId, $id)
     {
         $this->measurementRepository->deleteById($id);
         return $this->response->noContent();
