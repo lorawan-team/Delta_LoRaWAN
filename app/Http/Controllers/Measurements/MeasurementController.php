@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Measurements;
 
 use App\Jobs\StoreMeasurements;
-use App\Http\Requests\Device\MeasurementStoreRequest;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Transformers\DeviceTransformer;
-use Delta\DeltaService\Devices\DeviceRepositoryInterface;
+use App\Http\Requests\Measurements\MeasurementStoreRequest;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
@@ -27,6 +21,10 @@ class MeasurementController extends Controller
         $this->measurementRepository = $measurementRepository;
     }
 
+    /**
+     * @param int $deviceId
+     * @return \Dingo\Api\Http\Response
+     */
     public function index($deviceId) {
         $result = $this->measurementRepository->findAll($deviceId);
 
@@ -36,12 +34,12 @@ class MeasurementController extends Controller
         );
     }
 
+    /**
+     * @param int $id
+     * @return \Dingo\Api\Http\Response
+     */
     public function show($id) {
         $result = $this->measurementRepository->findById($id);
-        dd($result);
-        if ($result->items->isEmpty()) {
-            throw new \Exception("Error processing request", []);
-        }
 
         return $this->response->item(
             $result,
@@ -49,6 +47,10 @@ class MeasurementController extends Controller
         );
     }
 
+    /**
+     * @param MeasurementStoreRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
     public function store(MeasurementStoreRequest $request) {
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
@@ -56,6 +58,10 @@ class MeasurementController extends Controller
         return $this->response->created();
     }
 
+    /**
+     * @param int $id
+     * @return \Dingo\Api\Http\Response
+     */
     public function destroy($id)
     {
         $this->measurementRepository->deleteById($id);
