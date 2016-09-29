@@ -97,6 +97,6 @@ class DeviceController extends Controller
 
         $this->deviceRepository->delete($model);
 
-        return $this->response->accepted();
+        return $this->response->noContent();
     }
 }

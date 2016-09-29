@@ -40,7 +40,8 @@ class RoleController extends Controller
     }
 
     public function store() {
-        //... TODO
+
+        return $this->response->created();
     }
 
     public function update() {
@@ -48,6 +49,6 @@ class RoleController extends Controller
     }
 
     public function destroy() {
-        //... TODO
+        return $this->response->noContent();
     }
 }

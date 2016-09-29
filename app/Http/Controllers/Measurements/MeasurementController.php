@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Measurements;
 
-<<<<<<< HEAD
 use App\Jobs\StoreMeasurements;
-=======
 use App\Http\Requests\Device\MeasurementStoreRequest;
->>>>>>> 9b4d436... WIP
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,7 +13,6 @@ use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
-use App\Http\Requests\Measurements\MeasurementStoreRequest;
 
 
 class MeasurementController extends Controller
@@ -31,10 +27,10 @@ class MeasurementController extends Controller
         $this->measurementRepository = $measurementRepository;
     }
 
-    public function index() {
-        $result = $this->measurementRepository->createModel();
+    public function index($deviceId) {
+        $result = $this->measurementRepository->findAll($deviceId);
 
-        return $this->response->item(
+        return $this->response->collection(
             $result,
             $this->createTransformer()
         );
@@ -42,6 +38,10 @@ class MeasurementController extends Controller
 
     public function show($id) {
         $result = $this->measurementRepository->findById($id);
+        dd($result);
+        if ($result->items->isEmpty()) {
+            throw new \Exception("Error processing request", []);
+        }
 
         return $this->response->item(
             $result,
@@ -50,21 +50,15 @@ class MeasurementController extends Controller
     }
 
     public function store(MeasurementStoreRequest $request) {
-<<<<<<< HEAD
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
 
         return $this->response->created();
-=======
-        //... TODO
->>>>>>> 9b4d436... WIP
     }
 
-    public function update() {
-        //... TODO
-    }
-
-    public function destroy() {
-        //... TODO
+    public function destroy($id)
+    {
+        $this->measurementRepository->deleteById($id);
+        return $this->response->noContent();
     }
 }

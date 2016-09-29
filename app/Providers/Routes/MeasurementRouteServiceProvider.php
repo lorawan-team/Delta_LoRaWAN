@@ -21,12 +21,11 @@ class MeasurementRouteServiceProvider extends ServiceProvider
                 'middleware' => 'auth.token',
             ], function ($router) {
 
-                $router->resource('/measurement', 'MeasurementController', [
-                    'only' => ['index', 'show', 'update', 'destroy'],
+                $router->resource('/{deviceId}/measurement', 'MeasurementController', [
+                    'only' => ['index', 'show', 'destroy'],
                     'names' => [
                         'index' => 'measurement.index',
                         'show' => 'measurement.show',
-                        'update' => 'measurement.update',
                         'destroy' => 'measurement.destroy',
                     ]
                 ]);
@@ -36,7 +35,7 @@ class MeasurementRouteServiceProvider extends ServiceProvider
                 'namespace' => 'App\Http\Controllers\Measurements',
             ], function($router){
 
-                $router->resource('/measurement', 'measurementController', [
+                $router->resource('/{deviceId}/measurement', 'MeasurementController', [
                     'only' => ['store'],
                     'names' => [
                         'store' => 'measurement.store',

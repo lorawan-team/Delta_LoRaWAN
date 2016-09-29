@@ -2,22 +2,23 @@
 
 namespace App\Http\Transformers;
 
-use Delta\DeltaService\Measurements\MeasurementModelInterface;
+use Delta\DeltaService\Measurements\MeasurementModel;
 use League\Fractal\TransformerAbstract;
-use Delta\DeltaService\Devices\DeviceModelInterface;
 
 class MeasurementTransformer extends TransformerAbstract
 {
     /**
      * Turn item into generic array.
      *
-     * @param MeasurementModelInterface $device
+     * @param MeasurementModel $measurement
      * @return array
      */
-    public function transform(MeasurementModelInterface $device)
+    public function transform(MeasurementModel $measurement)
     {
         return [
-            'test' => $device->getTest(),
+            'id' => $measurement->getAttribute('id'),
+            'value' => $measurement->getAttribute('value'),
+            'date' => $measurement->getAttribute('created_at'),
         ];
     }
 }
