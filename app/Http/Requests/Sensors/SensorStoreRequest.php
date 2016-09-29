@@ -14,7 +14,7 @@ class SensorStoreRequest extends Request
     public function rules()
     {
         return [
-            'device_id' => 'required|integer|max:10',
+            'device_id' => 'required|integer|max:10|exists:homestead.device,id',
             'name' => 'required|max:255',
         ];
     }
