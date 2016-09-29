@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Measurements;
 
-use App\Jobs\StoreMeasurements;
 use App\Http\Requests\Measurements\MeasurementStoreRequest;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
