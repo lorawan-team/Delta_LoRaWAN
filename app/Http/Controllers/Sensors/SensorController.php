@@ -52,6 +52,6 @@ class SensorController extends Controller
     }
 
     public function destroy() {
-        //... TODO
+        $this->response->noContent();
     }
 }
