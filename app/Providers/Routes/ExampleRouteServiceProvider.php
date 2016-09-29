@@ -31,7 +31,7 @@ class ExampleRouteServiceProvider extends ServiceProvider
                 ]);
             });
 
-            $router->post('/test/{id}/', function ($id) {
+            /*$router->post('/test/{id}/', function ($id) {
                 // First we fetch the Request instance
                 $request = app()->make('request');
                 // Now we can get the content from it
@@ -44,7 +44,7 @@ class ExampleRouteServiceProvider extends ServiceProvider
                     'id' => $id,
                     'content' => $content
                 ]);
-            });
+            });*/
         });
     }
 }

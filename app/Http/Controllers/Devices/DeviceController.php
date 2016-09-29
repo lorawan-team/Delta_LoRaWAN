@@ -33,9 +33,11 @@ class DeviceController extends Controller
      * @return \Dingo\Api\Http\Response
      */
     public function index(DeviceIndexRequest $request) {
-        $result = $this->deviceRepository->findAll((array) $request);
+        $userId = $request->get("account_id");
 
-        return $this->response->item(
+        $result = $this->deviceRepository->findAll($userId);
+
+        return $this->response->collection(
             $result,
             $this->createTransformer()
         );
@@ -82,6 +84,10 @@ class DeviceController extends Controller
         return $this->response->accepted();
     }
 
+    /**
+     * @param $id
+     * @return \Dingo\Api\Http\Response|void
+     */
     public function destroy($id) {
         $model = $this->deviceRepository->findById($id);
 
@@ -91,6 +97,6 @@ class DeviceController extends Controller
 
         $this->deviceRepository->delete($model);
 
-        return $this->response->accepted();
+        return $this->response->noContent();
     }
 }

@@ -21,8 +21,6 @@ class StoreMeasurements Extends Job
         $this->data = $data;
     }
 
-
-
     public function handle(MeasurementRepositoryInterface $measurementRepository) {
         $measurementRepository->store($this->data);
     }
