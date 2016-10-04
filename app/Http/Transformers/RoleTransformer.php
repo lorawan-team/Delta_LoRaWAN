@@ -12,13 +12,14 @@ class RoleTransformer extends TransformerAbstract
     /**
      * Turn item into generic array.
      *
-     * @param RoleModelInterface $device
+     * @param RoleModelInterface $role
      * @return array
      */
-    public function transform(RoleModelInterface $device)
+    public function transform(RoleModelInterface $role)
     {
         return [
-            'test' => $device->getTest(),
+            'id'   => $role->getAttribute('id'),
+            'role' => $role->getAttribute('role'),
         ];
     }
 }

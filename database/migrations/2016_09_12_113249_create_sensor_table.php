@@ -15,6 +15,9 @@ class CreateSensorTable extends Migration {
 		Schema::create('sensor', function(Blueprint $table)
 		{
             $table->increments('id');
+            $table->string('name', 45);
+            $table->string('alias', 45);
+            $table->text('description');
 			$table->integer('device_id')->unsigned()->index('fk_sensor_device1_idx');
 			$table->string('name');
 			$table->timestamps();

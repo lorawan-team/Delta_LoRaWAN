@@ -17,7 +17,8 @@ class SensorRouteServiceProvider extends ServiceProvider
     {
         $router->version('v1', function ($router) {
             $router->group([
-                'namespace'  => 'App\Http\Controllers\Sensors'
+                'namespace'  => 'App\Http\Controllers\Sensors',
+                'middleware' => 'auth.token',
             ], function ($router) {
 
                 $router->resource('/sensor', 'SensorController', [

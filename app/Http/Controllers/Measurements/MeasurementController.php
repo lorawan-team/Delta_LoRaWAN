@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Measurements;
 
-use App\Jobs\StoreMeasurements;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Transformers\DeviceTransformer;
-use Delta\DeltaService\Devices\DeviceRepositoryInterface;
+use App\Http\Requests\Measurements\MeasurementStoreRequest;
 use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
-use App\Http\Requests\Measurements\MeasurementStoreRequest;
+use App\Jobs\StoreMeasurements;
 
 
 class MeasurementController extends Controller
@@ -27,8 +21,30 @@ class MeasurementController extends Controller
         $this->measurementRepository = $measurementRepository;
     }
 
-    public function index() {
-        $result = $this->measurementRepository->createModel();
+    /**
+     * List all measurements
+     *
+     * @param int $measurementId
+     * @return \Dingo\Api\Http\Response
+     */
+    public function index($measurementId) {
+        $result = $this->measurementRepository->findAll($measurementId);
+
+        return $this->response->collection(
+            $result,
+            $this->createTransformer()
+        );
+    }
+
+    /**
+     * Show a specific measurement
+     *
+     * @param int $deviceId
+     * @param int $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($deviceId, $id) {
+        $result = $this->measurementRepository->findById($id);
 
         return $this->response->item(
             $result,
@@ -36,10 +52,12 @@ class MeasurementController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
-    }
-
+    /**
+     * Add a new measurement. does not require a token.
+     *
+     * @param MeasurementStoreRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
     public function store(MeasurementStoreRequest $request) {
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
@@ -47,11 +65,16 @@ class MeasurementController extends Controller
         return $this->response->created();
     }
 
-    public function update() {
-        //... TODO
-    }
-
-    public function destroy() {
-        //... TODO
+    /**
+     * Delete a measurement
+     *
+     * @param int $deviceId
+     * @param int $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function destroy($deviceId, $id)
+    {
+        $this->measurementRepository->deleteById($id);
+        return $this->response->noContent();
     }
 }

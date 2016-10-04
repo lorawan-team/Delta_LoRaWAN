@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Devices;
 
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Transformers\DeviceTransformer;
 use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -28,20 +24,25 @@ class DeviceController extends Controller
     }
 
     /**
-     * @param DeviceIndexRequest $request
+     * List all devices
      *
+     * @param DeviceIndexRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function index(DeviceIndexRequest $request) {
-        $result = $this->deviceRepository->findAll((array) $request);
+        $userId = $request->get("account_id");
 
-        return $this->response->item(
+        $result = $this->deviceRepository->findAll($userId);
+
+        return $this->response->collection(
             $result,
             $this->createTransformer()
         );
     }
 
     /**
+     * Show a specific device
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
@@ -55,6 +56,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Add a new sensor
+     *
      * @param DeviceStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
@@ -66,6 +69,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Update a given
+     *
      * @param int $id
      * @param DeviceUpdateRequest $request
      * @return \Dingo\Api\Http\Response
@@ -77,20 +82,20 @@ class DeviceController extends Controller
             return $this->response->error('Device not found', 404);
         }
 
-        $this->deviceRepository->update($model, (array) $request);
+        $this->deviceRepository->update($model, $request->all());
 
         return $this->response->accepted();
     }
 
+    /**
+     * Delete a device
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response|void
+     */
     public function destroy($id) {
-        $model = $this->deviceRepository->findById($id);
+        $this->deviceRepository->deleteById($id);
 
-        if(! isset($model)) {
-            return $this->response->error('Device not found', 404);
-        }
-
-        $this->deviceRepository->delete($model);
-
-        return $this->response->accepted();
+        return $this->response->noContent();
     }
 }
