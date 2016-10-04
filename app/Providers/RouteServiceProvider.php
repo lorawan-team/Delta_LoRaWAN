@@ -24,7 +24,6 @@ class RouteServiceProvider extends ServiceProvider
      * @var array
      */
     protected $providers = [
-        \App\Providers\Routes\ExampleRouteServiceProvider::class,
         \App\Providers\Routes\DeviceRouteServiceProvider::class,
         \App\Providers\Routes\MeasurementRouteServiceProvider::class,
         \App\Providers\Routes\RoleRouteServiceProvider::class,

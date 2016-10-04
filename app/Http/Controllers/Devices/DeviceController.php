@@ -79,7 +79,7 @@ class DeviceController extends Controller
             return $this->response->error('Device not found', 404);
         }
 
-        $this->deviceRepository->update($model, (array) $request);
+        $this->deviceRepository->update($model, $request->all());
 
         return $this->response->accepted();
     }
@@ -89,13 +89,7 @@ class DeviceController extends Controller
      * @return \Dingo\Api\Http\Response|void
      */
     public function destroy($id) {
-        $model = $this->deviceRepository->findById($id);
-
-        if(! isset($model)) {
-            return $this->response->error('Device not found', 404);
-        }
-
-        $this->deviceRepository->delete($model);
+        $this->deviceRepository->deleteById($id);
 
         return $this->response->noContent();
     }

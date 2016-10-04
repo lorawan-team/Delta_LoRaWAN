@@ -35,6 +35,9 @@ class AuthToken
         Request $request,
         Closure $next
     ) {
+        if(env('APP_ENV') === 'testing'){
+            return $next($request);
+        }
         try {
             $decodedString = base64_decode(\JWTAuth::parseToken()->getToken()->get());
 

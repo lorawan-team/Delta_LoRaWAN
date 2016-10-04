@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests\Sensors;
+namespace App\Http\Requests\Roles;
 
 use App\Http\Requests\Request;
 
-class SensorStoreRequest extends Request
+class RoleStoreRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +13,7 @@ class SensorStoreRequest extends Request
     public function rules()
     {
         return [
-            'device_id' => 'required|integer|max:10',
-            'name' => 'required|max:45',
+            'role' => 'required|max:45',
         ];
     }
 }

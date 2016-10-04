@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Roles;
 
+use App\Http\Requests\Roles\RoleIndexRequest;
+use App\Http\Requests\Roles\RoleStoreRequest;
+use App\Http\Requests\Roles\RoleUpdateRequest;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,8 +29,27 @@ class RoleController extends Controller
         $this->roleRepository = $roleRepository;
     }
 
-    public function index() {
-        $result = $this->roleRepository->createModel();
+    /**
+     * @param RoleIndexRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function index(RoleIndexRequest $request) {
+        $userId = $request->get("account_id");
+
+        $result = $this->roleRepository->findAll($userId);
+
+        return $this->response->collection(
+            $result,
+            $this->createTransformer()
+        );
+    }
+
+    /**
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id) {
+        $result = $this->roleRepository->findById($id);
 
         return $this->response->item(
             $result,
@@ -35,20 +57,42 @@ class RoleController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
-    }
+    /**
+     * @param RoleStoreRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function store(RoleStoreRequest $request) {
 
-    public function store() {
+        $requestArray = $request->all();
+        $this->dispatch((new StoreRole($requestArray))->onQueue('role-queue'));
 
         return $this->response->created();
     }
 
-    public function update() {
-        //... TODO
+    /**
+     * @param $id
+     * @param RoleUpdateRequest $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function update($id, RoleUpdateRequest $request) {
+        $model = $this->roleRepository->findById($id);
+
+        if(! isset($model)) {
+            return $this->response->error('Role not found', 404);
+        }
+
+        $this->roleRepository->update($model, $request->all());
+
+        return $this->response->accepted();
     }
 
-    public function destroy() {
+    /**
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function destroy($id) {
+        $this->roleRepository->deleteById($id);
+
         return $this->response->noContent();
     }
 }

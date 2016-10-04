@@ -14,7 +14,9 @@ class DeviceStoreRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
+            'name' => 'required|max:45',
+            'alias' => 'required|max:45',
+            'token' => 'required|max:20',
         ];
     }
 }

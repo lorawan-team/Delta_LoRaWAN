@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Sensors;
 
+use App\Http\Requests\Sensor\SensorIndexRequest;
+use App\Http\Requests\Sensors\SensorUpdateRequest;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,8 +29,31 @@ class SensorController extends Controller
         $this->sensorRepository = $sensorRepository;
     }
 
-    public function index() {
-        $result = $this->sensorRepository->createModel();
+    /**
+     * Show all sensors
+     *
+     * @param SensorIndexRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function index(SensorIndexRequest $request) {
+        $userId = $request->get("account_id");
+
+        $result = $this->sensorRepository->findAll($userId);
+
+        return $this->response->collection(
+            $result,
+            $this->createTransformer()
+        );
+    }
+
+    /**
+     * Show a specific sensor
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id) {
+        $result = $this->sensorRepository->findById($id);
 
         return $this->response->item(
             $result,
@@ -36,10 +61,12 @@ class SensorController extends Controller
         );
     }
 
-    public function show() {
-        //... TODO
-    }
-
+    /**
+     * Make a new Sensor
+     *
+     * @param SensorStoreRequest $request
+     * @return \Dingo\Api\Http\Response
+     */
     public function store(SensorStoreRequest $request) {
         $requestArray = $request->all();
         $this->dispatch((new StoreSensor($requestArray))->onQueue('sensor-queue'));
@@ -47,11 +74,34 @@ class SensorController extends Controller
         return $this->response->created();
     }
 
-    public function update() {
-        //... TODO
+    /**
+     * Update a sensor
+     *
+     * @param $id
+     * @param SensorUpdateRequest $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function update($id, SensorUpdateRequest $request) {
+        $model = $this->sensorRepository->findById($id);
+
+        if(! isset($model)) {
+            return $this->response->error('Sensor not found', 404);
+        }
+
+        $this->sensorRepository->update($model, $request->all());
+
+        return $this->response->accepted();
     }
 
-    public function destroy() {
-        $this->response->noContent();
+    /**
+     * Delete a sensor
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function destroy($id) {
+        $this->sensorRepository->deleteById($id);
+
+        return $this->response->noContent();
     }
 }
