@@ -2,14 +2,7 @@
 
 namespace App\Http\Controllers\Sensors;
 
-use App\Http\Requests\Sensor\SensorIndexRequest;
 use App\Http\Requests\Sensors\SensorUpdateRequest;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Transformers\DeviceTransformer;
-use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\SensorTransformer;
 use Delta\DeltaService\Sensors\SensorRepositoryInterface;
@@ -30,15 +23,13 @@ class SensorController extends Controller
     }
 
     /**
-     * Show all sensors
+     * List all sensors
      *
-     * @param SensorIndexRequest $request
+     * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function index(SensorIndexRequest $request) {
-        $userId = $request->get("account_id");
-
-        $result = $this->sensorRepository->findAll($userId);
+    public function index($id) {
+        $result = $this->sensorRepository->findAll($id);
 
         return $this->response->collection(
             $result,
@@ -62,7 +53,7 @@ class SensorController extends Controller
     }
 
     /**
-     * Make a new Sensor
+     * Add a new Sensor
      *
      * @param SensorStoreRequest $request
      * @return \Dingo\Api\Http\Response
@@ -75,7 +66,7 @@ class SensorController extends Controller
     }
 
     /**
-     * Update a sensor
+     * Update a given sensor
      *
      * @param $id
      * @param SensorUpdateRequest $request

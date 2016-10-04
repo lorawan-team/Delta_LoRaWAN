@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Devices;
 
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Transformers\DeviceTransformer;
 use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -28,8 +24,9 @@ class DeviceController extends Controller
     }
 
     /**
-     * @param DeviceIndexRequest $request
+     * List all devices
      *
+     * @param DeviceIndexRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function index(DeviceIndexRequest $request) {
@@ -44,6 +41,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Show a specific device
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
@@ -57,6 +56,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Add a new sensor
+     *
      * @param DeviceStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
@@ -68,6 +69,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Update a given
+     *
      * @param int $id
      * @param DeviceUpdateRequest $request
      * @return \Dingo\Api\Http\Response
@@ -85,6 +88,8 @@ class DeviceController extends Controller
     }
 
     /**
+     * Delete a device
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response|void
      */

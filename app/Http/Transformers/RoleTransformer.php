@@ -18,7 +18,7 @@ class RoleTransformer extends TransformerAbstract
     public function transform(RoleModelInterface $role)
     {
         return [
-            'id' => $role->getAttribute('id'),
+            'id'   => $role->getAttribute('id'),
             'role' => $role->getAttribute('role'),
         ];
     }

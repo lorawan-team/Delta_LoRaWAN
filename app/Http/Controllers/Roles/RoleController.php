@@ -2,18 +2,9 @@
 
 namespace App\Http\Controllers\Roles;
 
-use App\Http\Requests\Roles\RoleIndexRequest;
 use App\Http\Requests\Roles\RoleStoreRequest;
 use App\Http\Requests\Roles\RoleUpdateRequest;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Transformers\DeviceTransformer;
-use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
-use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
-use App\Http\Transformers\MeasurementTransformer;
 use Delta\DeltaService\Roles\RoleRepositoryInterface;
 use App\Http\Transformers\RoleTransformer;
 
@@ -30,13 +21,13 @@ class RoleController extends Controller
     }
 
     /**
-     * @param RoleIndexRequest $request
+     * List all roles
+     *
+     * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function index(RoleIndexRequest $request) {
-        $userId = $request->get("account_id");
-
-        $result = $this->roleRepository->findAll($userId);
+    public function index($id) {
+        $result = $this->roleRepository->findAll($id);
 
         return $this->response->collection(
             $result,
@@ -45,6 +36,8 @@ class RoleController extends Controller
     }
 
     /**
+     * Show a specific role
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
@@ -58,6 +51,8 @@ class RoleController extends Controller
     }
 
     /**
+     * Add a new role
+     *
      * @param RoleStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
@@ -70,6 +65,8 @@ class RoleController extends Controller
     }
 
     /**
+     * Update a given role
+     *
      * @param $id
      * @param RoleUpdateRequest $request
      * @return \Dingo\Api\Http\Response|void
@@ -87,6 +84,8 @@ class RoleController extends Controller
     }
 
     /**
+     * Delete a Role
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response
      */

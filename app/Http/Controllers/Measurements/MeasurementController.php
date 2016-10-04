@@ -22,11 +22,13 @@ class MeasurementController extends Controller
     }
 
     /**
-     * @param int $deviceId
+     * List all measurements
+     *
+     * @param int $measurementId
      * @return \Dingo\Api\Http\Response
      */
-    public function index($deviceId) {
-        $result = $this->measurementRepository->findAll($deviceId);
+    public function index($measurementId) {
+        $result = $this->measurementRepository->findAll($measurementId);
 
         return $this->response->collection(
             $result,
@@ -35,6 +37,8 @@ class MeasurementController extends Controller
     }
 
     /**
+     * Show a specific measurement
+     *
      * @param int $deviceId
      * @param int $id
      * @return \Dingo\Api\Http\Response
@@ -49,6 +53,8 @@ class MeasurementController extends Controller
     }
 
     /**
+     * Add a new measurement. does not require a token.
+     *
      * @param MeasurementStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
@@ -60,6 +66,8 @@ class MeasurementController extends Controller
     }
 
     /**
+     * Delete a measurement
+     *
      * @param int $deviceId
      * @param int $id
      * @return \Dingo\Api\Http\Response

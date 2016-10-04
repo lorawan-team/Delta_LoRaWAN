@@ -10,14 +10,16 @@ class DeviceTransformer extends TransformerAbstract
     /**
      * Turn item into generic array.
      *
-     * @param DeviceModelInterface $device
+     * @param DeviceModel $device
      * @return array
      */
     public function transform(DeviceModel $device)
     {
         return [
-            'id' => $device->getAttribute('id'),
-            'name' => $device->getAttribute('name'),
+            'id'          => $device->getAttribute('id'),
+            'name'        => $device->getAttribute('name'),
+            'alias'       => $device->getAttribute('alias'),
+            'description' => $device->getAttribute('description'),
         ];
     }
 }
