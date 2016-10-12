@@ -17,6 +17,7 @@ class DeviceStoreRequest extends Request
             'name' => 'required|max:45',
             'alias' => 'required|max:45',
             'token' => 'required|max:20',
+            'UUID' => 'required|uuid',
         ];
     }
 }

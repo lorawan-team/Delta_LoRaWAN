@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Roles;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Roles\RoleStoreRequest;
 use App\Http\Requests\Roles\RoleUpdateRequest;
-use App\Http\Controllers\Controller;
-use Delta\DeltaService\Roles\RoleRepositoryInterface;
 use App\Http\Transformers\RoleTransformer;
+use App\Jobs\StoreRole;
+use Delta\DeltaService\Roles\RoleRepositoryInterface;
 
 class RoleController extends Controller
 {
@@ -23,11 +24,11 @@ class RoleController extends Controller
     /**
      * List all roles
      *
-     * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function index($id) {
-        $result = $this->roleRepository->findAll($id);
+    public function index()
+    {
+        $result = $this->roleRepository->findAll();
 
         return $this->response->collection(
             $result,
@@ -41,7 +42,8 @@ class RoleController extends Controller
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         $result = $this->roleRepository->findById($id);
 
         return $this->response->item(
@@ -56,8 +58,8 @@ class RoleController extends Controller
      * @param RoleStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function store(RoleStoreRequest $request) {
-
+    public function store(RoleStoreRequest $request)
+    {
         $requestArray = $request->all();
         $this->dispatch((new StoreRole($requestArray))->onQueue('role-queue'));
 
@@ -71,10 +73,11 @@ class RoleController extends Controller
      * @param RoleUpdateRequest $request
      * @return \Dingo\Api\Http\Response|void
      */
-    public function update($id, RoleUpdateRequest $request) {
+    public function update($id, RoleUpdateRequest $request)
+    {
         $model = $this->roleRepository->findById($id);
 
-        if(! isset($model)) {
+        if (!isset($model)) {
             return $this->response->error('Role not found', 404);
         }
 
@@ -89,9 +92,9 @@ class RoleController extends Controller
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $this->roleRepository->deleteById($id);
-
         return $this->response->noContent();
     }
 }

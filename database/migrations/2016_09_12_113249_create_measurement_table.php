@@ -17,8 +17,7 @@ class CreateMeasurementTable extends Migration {
             $table->increments('id');
             $table->integer('sensor_id')->unsigned()->index('fk_measurement_sensor1_idx');
             $table->JSON('value');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps();
         });
     }
 

@@ -1,7 +1,11 @@
 <?php
 
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+use Illuminate\Foundation\Testing as testServices;
+use Illuminate\Support\Facades\Artisan;
+
+abstract class TestCase extends testServices\TestCase
 {
+
     /**
      * The base URL to use while testing the application.
      *
@@ -12,6 +16,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     /**
      * Creates the application.
      *
+     * @beforeClass
      * @return \Illuminate\Foundation\Application
      */
     public function createApplication()
@@ -22,5 +27,28 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->baseUrl = $_ENV['MY_SERVER_URL'];
 
         return $app;
+    }
+
+    /**
+     * Will be called before every test, in order to reset the database.
+     * the DatabaseMigration treat cannot be used for this as the artisan command requires variables
+     *
+     * @before
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        Auth::loginUsingId(1);
+
+        // migrate the database. Used instead of the DatabaseMigration trait to be able to specify
+        // a path for the migrate command.
+        $this->artisan('migrate:refresh', [
+            // TODO these still refer to the local database directory. should become the package's ones
+//            '--path' => 'vendor/lorawan-team/delta_service/databases/migrations/',
+//            '--path' => 'vendor/lorawan-team/delta_verification/databases/migrations/',
+//            '--package' => 'lorawan-team/delta_service',
+//            '--package' => 'lorawan-team/delta_verification',
+            '--seed' => true,
+        ]);
     }
 }

@@ -11,10 +11,17 @@ class DeviceTableSeeder extends Seeder
             DB::table('device')->insert([
                 'name' => 'DEVICE' . $x,
                 'alias' => 'testdevice ' . $x,
-                'token' => str_random(20),
+                'description' => 'a test device with number ' . $x,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }
+    }
+
+    public function down()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::drop('device');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

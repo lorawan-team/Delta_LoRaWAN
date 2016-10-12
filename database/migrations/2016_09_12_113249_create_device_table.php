@@ -16,6 +16,7 @@ class CreateDeviceTable extends Migration {
 		{
             $table->increments('id', 10);
 			$table->string('name', 45);
+            $table->uuid('uuid');
             $table->string('alias', 45);
             $table->string('token', 20)->default(str_random(20));
             $table->text('description');

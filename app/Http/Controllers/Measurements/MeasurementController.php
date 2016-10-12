@@ -8,7 +8,6 @@ use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
 use App\Jobs\StoreMeasurements;
 
-
 class MeasurementController extends Controller
 {
 
@@ -27,7 +26,8 @@ class MeasurementController extends Controller
      * @param int $measurementId
      * @return \Dingo\Api\Http\Response
      */
-    public function index($measurementId) {
+    public function index($measurementId)
+    {
         $result = $this->measurementRepository->findAll($measurementId);
 
         return $this->response->collection(
@@ -43,7 +43,8 @@ class MeasurementController extends Controller
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($deviceId, $id) {
+    public function show($deviceId, $id)
+    {
         $result = $this->measurementRepository->findById($id);
 
         return $this->response->item(
@@ -58,7 +59,8 @@ class MeasurementController extends Controller
      * @param MeasurementStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function store(MeasurementStoreRequest $request) {
+    public function store(MeasurementStoreRequest $request)
+    {
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
 
