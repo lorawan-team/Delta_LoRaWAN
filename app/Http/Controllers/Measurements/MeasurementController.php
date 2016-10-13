@@ -23,12 +23,12 @@ class MeasurementController extends Controller
     /**
      * List all measurements
      *
-     * @param int $measurementId
+     * @param int $deviceUuid
      * @return \Dingo\Api\Http\Response
      */
-    public function index($measurementId)
+    public function index($deviceUuid)
     {
-        $result = $this->measurementRepository->findAll($measurementId);
+        $result = $this->measurementRepository->findAll($deviceUuid);
 
         return $this->response->collection(
             $result,
@@ -39,13 +39,13 @@ class MeasurementController extends Controller
     /**
      * Show a specific measurement
      *
-     * @param int $deviceId
+     * @param String $deviceUuid
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($deviceId, $id)
+    public function show($deviceUuid, $id)
     {
-        $result = $this->measurementRepository->findById($id);
+        $result = $this->measurementRepository->findById($deviceUuid);
 
         return $this->response->item(
             $result,
@@ -70,11 +70,11 @@ class MeasurementController extends Controller
     /**
      * Delete a measurement
      *
-     * @param int $deviceId
+     * @param int $deviceUuid
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy($deviceId, $id)
+    public function destroy($deviceUuid, $id)
     {
         $this->measurementRepository->deleteById($id);
         return $this->response->noContent();

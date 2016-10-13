@@ -19,7 +19,7 @@ class CreateDeviceTable extends Migration {
             $table->uuid('uuid');
             $table->string('alias', 45);
             $table->string('token', 20)->default(str_random(20));
-            $table->text('description');
+            $table->text('description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

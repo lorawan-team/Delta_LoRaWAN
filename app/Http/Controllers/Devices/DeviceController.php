@@ -7,7 +7,6 @@ use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Devices\DeviceStoreRequest;
 use App\Http\Requests\Devices\DeviceUpdateRequest;
-use App\Http\Requests\Devices\DeviceIndexRequest;
 use App\Jobs\StoreDevice;
 
 
@@ -26,13 +25,11 @@ class DeviceController extends Controller
     /**
      * List all devices
      *
-     * @param DeviceIndexRequest $request
+     * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function index(DeviceIndexRequest $request) {
-        $userId = $request->get("account_id");
-
-        $result = $this->deviceRepository->findAll($userId);
+    public function index($id) {
+        $result = $this->deviceRepository->findAll($id);
 
         return $this->response->collection(
             $result,
