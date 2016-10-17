@@ -9,14 +9,14 @@ class GenericTest extends TestCase
      *
      * @TODO AuthToken is disabled during testing, in order to make tests work. this makes this test unusable
      */
-    public function testFailWithoutAccountId()
-    {
+//    public function testFailWithoutAccountId()
+//    {
 //        $this->json('GET', '/device')
 //            ->assertResponseStatus(400)
 //            ->seeJson([
 //            'message' => "No account ID included with request",
 //        ]);
-    }
+//    }
 
     /**
      * Test if an error is thrown when the given account ID is invalid

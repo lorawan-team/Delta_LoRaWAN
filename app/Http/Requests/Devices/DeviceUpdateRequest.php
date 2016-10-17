@@ -14,9 +14,10 @@ class DeviceUpdateRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:45',
-            'alias' => 'required|max:45',
-            'token' => 'required|max:20',
+            'name' => 'max:45',
+            'alias' => 'max:45',
+            'token' => 'max:20',
+            'uuid' => '',
         ];
     }
 }

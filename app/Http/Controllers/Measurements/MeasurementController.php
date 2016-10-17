@@ -7,7 +7,13 @@ use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
 use App\Jobs\StoreMeasurements;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+/**
+ * Class MeasurementController
+ * @package App\Http\Controllers\Measurements
+ * @Resource("Measurement")
+ */
 class MeasurementController extends Controller
 {
 
@@ -45,7 +51,7 @@ class MeasurementController extends Controller
      */
     public function show($deviceUuid, $id)
     {
-        $result = $this->measurementRepository->findById($deviceUuid);
+        $result = $this->measurementRepository->findById($id);
 
         return $this->response->item(
             $result,

@@ -18,7 +18,7 @@ class MeasurementRouteServiceProvider extends ServiceProvider
         $router->version('v1', function ($router) {
             $router->group([
                 'namespace'  => 'App\Http\Controllers\Measurements',
-//                'middleware' => 'auth.token',
+                'middleware' => 'auth.token',
             ], function ($router) {
 
                 $router->resource('/{deviceUuid}/measurement', 'MeasurementController', [

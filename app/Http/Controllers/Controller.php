@@ -12,5 +12,5 @@ use App\Http\Traits\ExceptionHandlerTrait;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Helpers, TransformerTrait, ExceptionHandlerTrait;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Helpers, TransformerTrait;
 }

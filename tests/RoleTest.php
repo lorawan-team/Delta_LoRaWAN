@@ -91,13 +91,13 @@ class RoleTest extends TestCase
      * @medium
      * @uses RoleRepository::findById($id)
      */
-//    public function testUpdateNotExistingRole()
-//    {
-//        $this->put('/role/100?account_id=1', [
-//            'role' => 'testRoleUpdated',
-//        ])
-//            ->assertResponseStatus(404);
-//    }
+    public function testUpdateNotExistingRole()
+    {
+        $this->put('/role/100?account_id=1', [
+            'role' => 'testRoleUpdated',
+        ])
+            ->assertResponseStatus(404);
+    }
 
     /**
      * Remove an existing role that is still in use
@@ -108,8 +108,7 @@ class RoleTest extends TestCase
      */
     public function testDeleteRoleBeingUsed()
     {
-        $result = $this->delete('/role/1?account_id=1');
-         //   ->assertResponseStatus(409);
-        dd($result);
+        $this->delete('/role/1?account_id=1')
+            ->assertResponseStatus(409);
     }
 }

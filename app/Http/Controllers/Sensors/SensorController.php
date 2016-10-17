@@ -9,6 +9,11 @@ use Delta\DeltaService\Sensors\SensorRepositoryInterface;
 use App\Jobs\StoreSensor;
 use App\Http\Requests\Sensors\SensorStoreRequest;
 
+/**
+ * Class SensorController
+ * @package App\Http\Controllers\Sensors
+ * @Resource("Sensor")
+ */
 class SensorController extends Controller
 {
 
@@ -25,11 +30,11 @@ class SensorController extends Controller
     /**
      * List all sensors
      *
-     * @param $id
+     * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public function index($id) {
-        $result = $this->sensorRepository->findAll($id);
+    public function index(Request $request) {
+        $result = $this->sensorRepository->findAll($request->input('account_id'));
 
         return $this->response->collection(
             $result,
