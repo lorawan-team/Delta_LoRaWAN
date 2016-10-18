@@ -16,9 +16,9 @@ class MeasurementTransformer extends TransformerAbstract
     public function transform(MeasurementModel $measurement)
     {
         return [
-            'id' => $measurement->getAttribute('id'),
-            'value' => $measurement->getAttribute('value'),
-            'date' => $measurement->getAttribute('created_at'),
+            'id'         => $measurement->getAttribute('id'),
+            'value'      => $measurement->getAttribute('value'),
+            'created_at' => $measurement->getAttribute('created_at'),
         ];
     }
 }

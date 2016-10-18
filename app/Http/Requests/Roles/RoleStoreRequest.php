@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests\Devices;
+namespace App\Http\Requests\Roles;
 
 use App\Http\Requests\Request;
 
-class DeviceIndexRequest extends Request
+class RoleStoreRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +13,7 @@ class DeviceIndexRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'sometimes|alphanum|max:10',
+            'role' => 'required|max:45',
         ];
     }
 }

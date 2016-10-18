@@ -13,14 +13,17 @@ class SensorTransformer extends TransformerAbstract
     /**
      * Turn item into generic array.
      *
-     * @param SensorModelInterface $device
+     * @param SensorModelInterface $sensor
      * @return array
      */
-    public function transform(SensorModelInterface $device)
+    public function transform(SensorModelInterface $sensor)
     {
         return [
-            'id' => $device->getAttribute('id'),
-            'name' => $device->getAttribute('name'),
+            'id'          =>      $sensor->getAttribute('id'),
+            'device_id'   =>      $sensor->getAttribute('device_id'),
+            'name'        =>      $sensor->getAttribute('name'),
+            'alias'       =>      $sensor->getAttribute('alias'),
+            'description' =>      $sensor->getAttribute('description'),
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Devices;
+namespace App\Http\Requests\Roles;
 
 use App\Http\Requests\Request;
 
-class DeviceUpdateRequest extends Request
+class RoleUpdateRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,10 +14,7 @@ class DeviceUpdateRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'max:45',
-            'alias' => 'max:45',
-            'token' => 'max:20',
-            'uuid' => 'sometimes',
+            'role' => 'required|max:45',
         ];
     }
 }

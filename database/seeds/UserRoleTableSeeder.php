@@ -14,4 +14,11 @@ class UserRoleTableSeeder extends Seeder
             ]);
         }
     }
+
+    public function down()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::drop('users_role');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+    }
 }

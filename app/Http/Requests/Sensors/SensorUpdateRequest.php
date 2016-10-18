@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Measurements;
+namespace App\Http\Requests\Sensors;
 
 use App\Http\Requests\Request;
 
-class MeasurementUpdateRequest extends Request
+class SensorUpdateRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,9 @@ class MeasurementUpdateRequest extends Request
     public function rules()
     {
         return [
-            'measurement_id' => 'required|integer|max:10',
-            'value' => 'required',
+            'name' => 'required|max:45',
+            'alias' => 'sometimes',
+            'description' => 'sometimes',
         ];
     }
 }

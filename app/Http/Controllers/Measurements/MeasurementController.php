@@ -7,8 +7,13 @@ use App\Http\Controllers\Controller;
 use Delta\DeltaService\Measurements\MeasurementRepositoryInterface;
 use App\Http\Transformers\MeasurementTransformer;
 use App\Jobs\StoreMeasurements;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-
+/**
+ * Class MeasurementController
+ * @package App\Http\Controllers\Measurements
+ * @Resource("Measurement")
+ */
 class MeasurementController extends Controller
 {
 
@@ -22,11 +27,14 @@ class MeasurementController extends Controller
     }
 
     /**
-     * @param int $deviceId
+     * List all measurements
+     *
+     * @param int $deviceUuid
      * @return \Dingo\Api\Http\Response
      */
-    public function index($deviceId) {
-        $result = $this->measurementRepository->findAll($deviceId);
+    public function index($deviceUuid)
+    {
+        $result = $this->measurementRepository->findAll($deviceUuid);
 
         return $this->response->collection(
             $result,
@@ -35,11 +43,14 @@ class MeasurementController extends Controller
     }
 
     /**
-     * @param int $deviceId
+     * Show a specific measurement
+     *
+     * @param String $deviceUuid
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($deviceId, $id) {
+    public function show($deviceUuid, $id)
+    {
         $result = $this->measurementRepository->findById($id);
 
         return $this->response->item(
@@ -49,10 +60,13 @@ class MeasurementController extends Controller
     }
 
     /**
+     * Add a new measurement. does not require a token.
+     *
      * @param MeasurementStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function store(MeasurementStoreRequest $request) {
+    public function store(MeasurementStoreRequest $request)
+    {
         $requestArray = $request->all();
         $this->dispatch((new StoreMeasurements($requestArray))->onQueue('measurement-queue'));
 
@@ -60,11 +74,13 @@ class MeasurementController extends Controller
     }
 
     /**
-     * @param int $deviceId
+     * Delete a measurement
+     *
+     * @param int $deviceUuid
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy($deviceId, $id)
+    public function destroy($deviceUuid, $id)
     {
         $this->measurementRepository->deleteById($id);
         return $this->response->noContent();

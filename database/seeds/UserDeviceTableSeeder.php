@@ -14,4 +14,11 @@ class UserDeviceTableSeeder extends Seeder
             ]);
         }
     }
+
+    public function down()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::drop('users_device');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+    }
 }

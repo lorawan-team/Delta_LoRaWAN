@@ -14,7 +14,7 @@ class MeasurementStoreRequest extends Request
     public function rules()
     {
         return [
-            'sensor_id' => 'required|integer|max:10',
+            'sensor_id' => 'required|integer',
             'value' => 'required',
         ];
     }
