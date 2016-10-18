@@ -15,6 +15,8 @@ class SensorUpdateRequest extends Request
     {
         return [
             'name' => 'required|max:45',
+            'alias' => 'sometimes',
+            'description' => 'sometimes',
         ];
     }
 }

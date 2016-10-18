@@ -16,6 +16,8 @@ class SensorStoreRequest extends Request
         return [
             'device_id' => 'required|integer',
             'name' => 'required|max:45',
+            'alias' => 'sometimes',
+            'description' => 'sometimes',
         ];
     }
 }

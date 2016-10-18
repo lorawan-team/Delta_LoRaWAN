@@ -17,7 +17,7 @@ class DeviceUpdateRequest extends Request
             'name' => 'max:45',
             'alias' => 'max:45',
             'token' => 'max:20',
-            'uuid' => '',
+            'uuid' => 'sometimes',
         ];
     }
 }
