@@ -1,3 +1,7 @@
+# Welcome to the Delta LoRaWAN project
+
+You can find the setup guide here: https://github.com/lorawan-team/Delta_LoRaWAN/wiki
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
