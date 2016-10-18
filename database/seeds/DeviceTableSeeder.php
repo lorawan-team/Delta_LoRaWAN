@@ -11,7 +11,7 @@ class DeviceTableSeeder extends Seeder
             DB::table('device')->insert([
                 'name' => 'DEVICE' . $x,
                 'alias' => 'testdevice ' . $x,
-                'uuid' => '00:80:00:00:00:00:BE:' . $x,
+                'eui' => '00:80:00:00:00:00:BE:' . $x,
                 'description' => 'a test device with number ' . $x,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

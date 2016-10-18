@@ -15,7 +15,7 @@ class DeviceStoreRequest extends Request
     {
         return [
             'name' => 'max:45',
-            'uuid' => 'sometimes',
+            'eui' => 'sometimes',
             'alias' => 'max:45',
             'token' => 'max:20',
             'description' => 'sometimes',
