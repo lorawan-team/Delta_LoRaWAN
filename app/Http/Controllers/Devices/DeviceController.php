@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Devices;
 
-use App\Http\Transformers\DeviceTransformer;
-use Delta\DeltaService\Devices\DeviceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Devices\DeviceStoreRequest;
 use App\Http\Requests\Devices\DeviceUpdateRequest;
-use App\Http\Requests\Devices\DeviceIndexRequest;
+use App\Http\Transformers\DeviceTransformer;
 use App\Jobs\StoreDevice;
+use Delta\DeltaService\Devices\DeviceRepositoryInterface;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-
+/**
+ * Class DeviceController
+ * @package App\Http\Controllers\Devices
+ * @Resource("Device")
+ */
 class DeviceController extends Controller
 {
 
@@ -26,13 +32,12 @@ class DeviceController extends Controller
     /**
      * List all devices
      *
-     * @param DeviceIndexRequest $request
+     * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function index(DeviceIndexRequest $request) {
-        $userId = $request->get("account_id");
-
-        $result = $this->deviceRepository->findAll($userId);
+    public function index(Request $request)
+    {
+        $result = $this->deviceRepository->findAll($request->input('account_id'));
 
         return $this->response->collection(
             $result,
@@ -46,7 +51,8 @@ class DeviceController extends Controller
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         $result = $this->deviceRepository->findById($id);
 
         return $this->response->item(
@@ -61,7 +67,8 @@ class DeviceController extends Controller
      * @param DeviceStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function store(DeviceStoreRequest $request) {
+    public function store(DeviceStoreRequest $request)
+    {
         $requestArray = $request->all();
         $this->dispatch((new StoreDevice($requestArray))->onQueue('device-queue'));
 
@@ -75,16 +82,15 @@ class DeviceController extends Controller
      * @param DeviceUpdateRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function update($id, DeviceUpdateRequest $request) {
-        $model = $this->deviceRepository->findById($id);
-
-        if(! isset($model)) {
-            return $this->response->error('Device not found', 404);
+    public function update($id, DeviceUpdateRequest $request)
+    {
+        try {
+            $model = $this->deviceRepository->findById($id);
+            $this->deviceRepository->update($model, $request->all());
+            return $this->response->accepted();
+        } catch (ModelNotFoundException $exception) {
+            return $this->response->error("the device with the given ID does not exist", 404);
         }
-
-        $this->deviceRepository->update($model, $request->all());
-
-        return $this->response->accepted();
     }
 
     /**
@@ -93,9 +99,15 @@ class DeviceController extends Controller
      * @param $id
      * @return \Dingo\Api\Http\Response|void
      */
-    public function destroy($id) {
-        $this->deviceRepository->deleteById($id);
+    public function destroy($id)
+    {
+        try {
+            $this->deviceRepository->deleteById($id);
+            return $this->response->noContent();
 
-        return $this->response->noContent();
+        } catch (ModelNotFoundException $e) {
+            // TODO recursief verwijderen van sensoren en measurements? soft deletes ofc.
+            return $this->response->error("Could not delete the device as it is still has a sensor", 409);
+        }
     }
 }

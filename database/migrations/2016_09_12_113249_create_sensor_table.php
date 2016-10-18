@@ -19,7 +19,6 @@ class CreateSensorTable extends Migration {
             $table->string('alias', 45);
             $table->text('description');
 			$table->integer('device_id')->unsigned()->index('fk_sensor_device1_idx');
-			$table->string('name');
 			$table->timestamps();
 			$table->softDeletes();
 		});
