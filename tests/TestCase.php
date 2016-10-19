@@ -32,8 +32,6 @@ abstract class TestCase extends testServices\TestCase
     /**
      * Will be called before every test, in order to reset the database.
      * the DatabaseMigration treat cannot be used for this as the artisan command requires variables
-     *
-     * @before
      */
     public function setUp()
     {
