@@ -40,6 +40,8 @@ abstract class TestCase extends testServices\TestCase
         parent::setUp();
         Auth::loginUsingId(1);
 
+        echo("artisan migrate");
+
         // migrate the database. Used instead of the DatabaseMigration trait to be able to specify
         // a path for the migrate command.
         $this->artisan('migrate:refresh', [
@@ -49,8 +51,6 @@ abstract class TestCase extends testServices\TestCase
 //            '--package' => 'lorawan-team/delta_service',
 //            '--package' => 'lorawan-team/delta_verification',
             '--seed' => true,
-            '--env' => "testing",
-            '--verbose',
         ]);
     }
 }
