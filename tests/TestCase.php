@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing as testServices;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 abstract class TestCase extends testServices\TestCase
 {
@@ -41,7 +41,7 @@ abstract class TestCase extends testServices\TestCase
         parent::setUp();
         Auth::loginUsingId(1);
 
-        echo("artisan migrate");
+        echo("- migrate -");
 
         // migrate the database. Used instead of the DatabaseMigration trait to be able to specify
         // a path for the migrate command.
