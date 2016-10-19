@@ -37,10 +37,13 @@ abstract class TestCase extends testServices\TestCase
      */
     public function setUp()
     {
+
+        echo("artisan migrate");
+
         parent::setUp();
         Auth::loginUsingId(1);
 
-        echo("artisan migrate");
+
 
         // migrate the database. Used instead of the DatabaseMigration trait to be able to specify
         // a path for the migrate command.

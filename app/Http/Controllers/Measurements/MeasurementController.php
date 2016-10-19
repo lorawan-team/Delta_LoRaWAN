@@ -29,7 +29,7 @@ class MeasurementController extends Controller
     /**
      * List all measurements
      *
-     * @param int $deviceEui
+     * @param String $deviceEui
      * @return \Dingo\Api\Http\Response
      */
     public function index($deviceEui)
@@ -76,7 +76,7 @@ class MeasurementController extends Controller
     /**
      * Delete a measurement
      *
-     * @param int $deviceEui
+     * @param String $deviceEui
      * @param int $id
      * @return \Dingo\Api\Http\Response
      */
