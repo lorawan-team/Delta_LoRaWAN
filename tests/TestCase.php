@@ -50,6 +50,7 @@ abstract class TestCase extends testServices\TestCase
 //            '--package' => 'lorawan-team/delta_verification',
             '--seed' => true,
             '--env' => "testing",
+            '--verbose',
         ]);
     }
 }
