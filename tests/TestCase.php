@@ -38,9 +38,8 @@ abstract class TestCase extends testServices\TestCase
     public function setUp()
     {
 
-        echo("artisan migrate");
-
         parent::setUp();
+        echo("artisan migrate");
         Auth::loginUsingId(1);
 
 
