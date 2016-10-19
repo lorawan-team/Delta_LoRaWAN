@@ -21,7 +21,7 @@ abstract class TestCase extends testServices\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
         $this->baseUrl = $_ENV['MY_SERVER_URL'];
@@ -50,7 +50,5 @@ abstract class TestCase extends testServices\TestCase
         ]);
 
         Auth::loginUsingId(1);
-
-        echo("- migrate -");
     }
 }
