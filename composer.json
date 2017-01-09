@@ -7,11 +7,11 @@
     "repositories": [
         {
             "type": "git",
-            "url": "http://github.com/lorawan-team/delta_service"
+            "url": "https://github.com/lorawan-team/delta_service"
         },
         {
             "type": "vcs",
-            "url": "http://github.com/lorawan-team/delta_verification"
+            "url": "https://github.com/lorawan-team/delta_verification"
         }
     ],
     "require": {
